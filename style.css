@@ -97,7 +97,7 @@ header h1 {
 .filter-btn.active {
     background: #4facfe;
     color: white;
-    border-color: #4facfe;
+    border-color: red;
 }
 
 .filter-btn:hover {
