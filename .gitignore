@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # dependencies
 /node_modules
 /.pnp
@@ -37,30 +36,3 @@ next-env.d.ts
 # chat history
 chat_history.json
 vector_db.json
-=======
-# 操作系统文件
-.DS_Store
-Thumbs.db
-
-# 编辑器文件
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# 临时文件
-*.tmp
-*.temp
-
-# 日志文件
-*.log
-
-# 压缩备份文件
-*.zip
-*.rar
-*.7z
-
-# 二进制文件（除了CSGO录像文件）
-# 注意：CSGO录像文件(.dem)是二进制文件，但我们需要跟踪它们
-# 所以不在这里忽略.dem文件
->>>>>>> af8fdfc9b445d644299a90c527ab2a760cfbca4d
