@@ -239,7 +239,7 @@ ${theoryText}
 
   try {
     const resp = await getClient().chat.completions.create({
-      model: 'qwen-plus',
+      model: 'qwen-turbo',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.3,
       max_tokens: 200
@@ -283,7 +283,7 @@ ${casesText}
 
   try {
     const resp = await getClient().chat.completions.create({
-      model: 'qwen-plus',
+      model: 'qwen-turbo',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.5,
       max_tokens: 100
