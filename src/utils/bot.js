@@ -3,15 +3,21 @@ const path = require('path');
 const OpenAI = require('openai');
 require('dotenv').config();
 
-const API_KEY = process.env.DASHSCOPE_API_KEY;
-if (!API_KEY) {
-  throw new Error('请在 .env 文件中设置 DASHSCOPE_API_KEY');
-}
+let client = null;
 
-const client = new OpenAI({
-  apiKey: API_KEY,
-  baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1'
-});
+function getClient() {
+  if (!client) {
+    const API_KEY = process.env.DASHSCOPE_API_KEY;
+    if (!API_KEY) {
+      throw new Error('请在 .env 文件中设置 DASHSCOPE_API_KEY');
+    }
+    client = new OpenAI({
+      apiKey: API_KEY,
+      baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1'
+    });
+  }
+  return client;
+}
 
 let technique_theory = {};
 let vector_store = null;
@@ -237,7 +243,7 @@ ${theoryText}
 `;
 
   try {
-    const resp = await client.chat.completions.create({
+    const resp = await getClient().chat.completions.create({
       model: 'qwen3-max',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.3,
@@ -281,7 +287,7 @@ ${casesText}
 `;
 
   try {
-    const resp = await client.chat.completions.create({
+    const resp = await getClient().chat.completions.create({
       model: 'qwen3-max',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.5,
