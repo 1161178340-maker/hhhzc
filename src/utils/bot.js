@@ -3,20 +3,15 @@ const path = require('path');
 const OpenAI = require('openai');
 require('dotenv').config();
 
-let client = null;
-
 function getClient() {
-  if (!client) {
-    const API_KEY = process.env.DASHSCOPE_API_KEY;
-    if (!API_KEY) {
-      throw new Error('请在 .env 文件中设置 DASHSCOPE_API_KEY');
-    }
-    client = new OpenAI({
-      apiKey: API_KEY,
-      baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1'
-    });
+  const API_KEY = process.env.DASHSCOPE_API_KEY;
+  if (!API_KEY) {
+    throw new Error('请在 .env 文件中设置 DASHSCOPE_API_KEY');
   }
-  return client;
+  return new OpenAI({
+    apiKey: API_KEY,
+    baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1'
+  });
 }
 
 let technique_theory = {};
