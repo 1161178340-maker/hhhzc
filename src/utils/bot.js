@@ -27,15 +27,23 @@ class VectorStore {
   }
 
   load() {
-    if (fs.existsSync(vector_db_file)) {
-      const data = fs.readFileSync(vector_db_file, 'utf-8');
-      this.documents = JSON.parse(data);
-      console.log(`✅ 向量数据库已加载，共 ${this.documents.length} 个文档`);
+    try {
+      if (fs.existsSync(vector_db_file)) {
+        const data = fs.readFileSync(vector_db_file, 'utf-8');
+        this.documents = JSON.parse(data);
+        console.log(`✅ 向量数据库已加载，共 ${this.documents.length} 个文档`);
+      }
+    } catch (error) {
+      console.warn('无法加载向量数据库（可能是只读文件系统）:', error.message);
     }
   }
 
   save() {
-    fs.writeFileSync(vector_db_file, JSON.stringify(this.documents, null, 2), 'utf-8');
+    try {
+      fs.writeFileSync(vector_db_file, JSON.stringify(this.documents, null, 2), 'utf-8');
+    } catch (error) {
+      console.warn('无法保存向量数据库（可能是只读文件系统）:', error.message);
+    }
   }
 
   add(documents) {
@@ -305,13 +313,17 @@ function saveChatLog(userMsg, botReply, decision) {
     decision_reason: decision.reason
   };
 
-  let logs = [];
-  if (fs.existsSync(chat_log_file)) {
-    logs = JSON.parse(fs.readFileSync(chat_log_file, 'utf-8'));
-  }
+  try {
+    let logs = [];
+    if (fs.existsSync(chat_log_file)) {
+      logs = JSON.parse(fs.readFileSync(chat_log_file, 'utf-8'));
+    }
 
-  logs.push(logEntry);
-  fs.writeFileSync(chat_log_file, JSON.stringify(logs, null, 2), 'utf-8');
+    logs.push(logEntry);
+    fs.writeFileSync(chat_log_file, JSON.stringify(logs, null, 2), 'utf-8');
+  } catch (error) {
+    console.warn('无法保存聊天日志（可能是只读文件系统）:', error.message);
+  }
 }
 
 async function chatWithBot(userMessage) {
