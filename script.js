@@ -238,4 +238,4 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-const app = new TodoApp();
+new TodoApp();

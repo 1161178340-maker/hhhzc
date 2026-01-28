@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    const result = await chatWithBot(trimmedMessage).catch((error) => {
+    const result = await chatWithBot(trimmedMessage).catch((error: unknown) => {
       console.error('Bot logic error:', error);
       throw new Error('Failed to generate response from bot');
     });
