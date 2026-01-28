@@ -1,4 +1,4 @@
-const { NextRequest, NextResponse } = require('next/server');
+import { NextRequest, NextResponse } from 'next/server';
 
 const { chatWithBot, resetConversation, loadKnowledgeBase } = require('../../../utils/bot');
 
